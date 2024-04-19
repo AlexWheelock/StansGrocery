@@ -6,26 +6,38 @@
 
 Option Strict On
 Option Explicit On
-
+Option Compare Text
 Public Class StansGroceryForm
 
     'List containing all of the product and their corresponding info
     Dim productList As New List(Of String)
 
     Sub ReadProductInfo()
-        Dim products$, temp$
+        Dim products$
+        Dim item() As String, location() As String, category() As String, temp() As String
 
+        'Try to open Grocery.txt
         Try
             FileOpen(1, "..\..\Grocery.txt", OpenMode.Input)
         Catch ex As Exception
             MsgBox("Error!!!")
         End Try
 
+        'Write the lines from Grocery.te
         Do Until EOF(1)
             products = LineInput(1)
-            'Me.productList.Add(products)
-            DisplayListBox.Items.Add(products)
+            temp = Split(products, Chr(34))
+
+            item = Split(temp(1), "$$ITM")
+            location = Split(temp(3), "LOC")
+            category = Split(temp(5), "%%CAT")
+
+            'location = temp(1)
+            'category = temp(2)
+
+            DisplayListBox.Items.Add($"{item(1)}, Aisle {location(1)}, Category: {category(1)}")
         Loop
+
 
 
         FileClose(1)
