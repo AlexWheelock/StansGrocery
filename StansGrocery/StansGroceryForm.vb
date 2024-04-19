@@ -1,10 +1,42 @@
-﻿Public Class StansGroceryForm
+﻿'Alex Wheelock
+'RCET 0265
+'Spring 2024
+'Stan's Grocery
+'https://github.com/AlexWheelock/StansGrocery.git
+
+Option Strict On
+Option Explicit On
+
+Public Class StansGroceryForm
+
+    Sub ReadProductInfo()
+        Dim products$, temp$
+
+        Try
+            FileOpen(1, "..\..\Grocery.txt", OpenMode.Input)
+
+            Do Until EOF(1)
+                For i = 1 To 10
+                    Input(1, products)
+                    temp &= products & ","
+                    DisplayListBox.Items.Add(temp)
+                Next
+
+            Loop
+
+            FileClose(1)
+        Catch ex As Exception
+            MsgBox("Error!!!")
+        End Try
+
+    End Sub
 
 
+    'Event Handlers Below Here
 
 
     Private Sub StansGrocery_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
+        ReadProductInfo()
     End Sub
 
     Private Sub SearchTextBox_TextChanged(sender As Object, e As EventArgs) Handles SearchTextBox.TextChanged
@@ -72,6 +104,10 @@
     End Sub
 
     Private Sub AboutTopMenuButton_Click(sender As Object, e As EventArgs) Handles AboutTopMenuButton.Click
+
+    End Sub
+
+    Private Sub MainToolTip_Popup(sender As Object, e As PopupEventArgs) Handles MainToolTip.Popup
 
     End Sub
 End Class

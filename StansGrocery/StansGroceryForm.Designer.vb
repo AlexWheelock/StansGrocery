@@ -40,6 +40,7 @@ Partial Class StansGroceryForm
         Me.ExitTopMenuButton = New System.Windows.Forms.ToolStripMenuItem()
         Me.HelpTopMenuButton = New System.Windows.Forms.ToolStripMenuItem()
         Me.AboutTopMenuButton = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MainToolTip = New System.Windows.Forms.ToolTip(Me.components)
         Me.FilterGroupBox.SuspendLayout()
         Me.MainContextMenuStrip.SuspendLayout()
         Me.TopMenuStrip.SuspendLayout()
@@ -179,6 +180,9 @@ Partial Class StansGroceryForm
         Me.AboutTopMenuButton.Size = New System.Drawing.Size(180, 22)
         Me.AboutTopMenuButton.Text = "&About"
         '
+        'MainToolTip
+        '
+        '
         'StansGroceryForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -221,4 +225,5 @@ Partial Class StansGroceryForm
     Friend WithEvents ExitTopMenuButton As ToolStripMenuItem
     Friend WithEvents HelpTopMenuButton As ToolStripMenuItem
     Friend WithEvents AboutTopMenuButton As ToolStripMenuItem
+    Friend WithEvents MainToolTip As ToolTip
 End Class
