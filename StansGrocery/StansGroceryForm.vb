@@ -9,26 +9,26 @@ Option Explicit On
 
 Public Class StansGroceryForm
 
+    'List containing all of the product and their corresponding info
+    Dim productList As New List(Of String)
+
     Sub ReadProductInfo()
         Dim products$, temp$
 
         Try
             FileOpen(1, "..\..\Grocery.txt", OpenMode.Input)
-
-            Do Until EOF(1)
-                For i = 1 To 10
-                    Input(1, products)
-                    temp &= products & ","
-                    DisplayListBox.Items.Add(temp)
-                Next
-
-            Loop
-
-            FileClose(1)
         Catch ex As Exception
             MsgBox("Error!!!")
         End Try
 
+        Do Until EOF(1)
+            products = LineInput(1)
+            'Me.productList.Add(products)
+            DisplayListBox.Items.Add(products)
+        Loop
+
+
+        FileClose(1)
     End Sub
 
 
@@ -110,4 +110,5 @@ Public Class StansGroceryForm
     Private Sub MainToolTip_Popup(sender As Object, e As PopupEventArgs) Handles MainToolTip.Popup
 
     End Sub
+
 End Class
