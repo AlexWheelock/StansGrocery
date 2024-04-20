@@ -42,9 +42,7 @@ Partial Class StansGroceryForm
         Me.HelpTopMenuButton = New System.Windows.Forms.ToolStripMenuItem()
         Me.AboutTopMenuButton = New System.Windows.Forms.ToolStripMenuItem()
         Me.MainToolTip = New System.Windows.Forms.ToolTip(Me.components)
-        Me.ItemLabel = New System.Windows.Forms.Label()
-        Me.AisleNumberLabel = New System.Windows.Forms.Label()
-        Me.CategoryLabel = New System.Windows.Forms.Label()
+        Me.DisplayLabel = New System.Windows.Forms.Label()
         Me.FilterGroupBox.SuspendLayout()
         Me.MainContextMenuStrip.SuspendLayout()
         Me.TopMenuStrip.SuspendLayout()
@@ -80,7 +78,7 @@ Partial Class StansGroceryForm
         '
         Me.DisplayListBox.Font = New System.Drawing.Font("Consolas", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DisplayListBox.FormattingEnabled = True
-        Me.DisplayListBox.Location = New System.Drawing.Point(23, 218)
+        Me.DisplayListBox.Location = New System.Drawing.Point(23, 240)
         Me.DisplayListBox.Name = "DisplayListBox"
         Me.DisplayListBox.Size = New System.Drawing.Size(363, 212)
         Me.DisplayListBox.Sorted = True
@@ -103,7 +101,7 @@ Partial Class StansGroceryForm
         Me.FilterGroupBox.Controls.Add(Me.FilterByAisleRadioButton)
         Me.FilterGroupBox.Controls.Add(Me.FilterComboBox)
         Me.FilterGroupBox.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.FilterGroupBox.Location = New System.Drawing.Point(12, 73)
+        Me.FilterGroupBox.Location = New System.Drawing.Point(12, 95)
         Me.FilterGroupBox.Name = "FilterGroupBox"
         Me.FilterGroupBox.Size = New System.Drawing.Size(383, 117)
         Me.FilterGroupBox.TabIndex = 5
@@ -204,41 +202,20 @@ Partial Class StansGroceryForm
         'MainToolTip
         '
         '
-        'ItemLabel
+        'DisplayLabel
         '
-        Me.ItemLabel.AutoSize = True
-        Me.ItemLabel.Location = New System.Drawing.Point(20, 202)
-        Me.ItemLabel.Name = "ItemLabel"
-        Me.ItemLabel.Size = New System.Drawing.Size(30, 13)
-        Me.ItemLabel.TabIndex = 8
-        Me.ItemLabel.Text = "Item:"
-        '
-        'AisleNumberLabel
-        '
-        Me.AisleNumberLabel.AutoSize = True
-        Me.AisleNumberLabel.Location = New System.Drawing.Point(199, 202)
-        Me.AisleNumberLabel.Name = "AisleNumberLabel"
-        Me.AisleNumberLabel.Size = New System.Drawing.Size(39, 13)
-        Me.AisleNumberLabel.TabIndex = 9
-        Me.AisleNumberLabel.Text = "Aisle#:"
-        '
-        'CategoryLabel
-        '
-        Me.CategoryLabel.AutoSize = True
-        Me.CategoryLabel.Location = New System.Drawing.Point(244, 202)
-        Me.CategoryLabel.Name = "CategoryLabel"
-        Me.CategoryLabel.Size = New System.Drawing.Size(52, 13)
-        Me.CategoryLabel.TabIndex = 10
-        Me.CategoryLabel.Text = "Category:"
+        Me.DisplayLabel.AutoSize = True
+        Me.DisplayLabel.Location = New System.Drawing.Point(76, 70)
+        Me.DisplayLabel.Name = "DisplayLabel"
+        Me.DisplayLabel.Size = New System.Drawing.Size(0, 13)
+        Me.DisplayLabel.TabIndex = 5
         '
         'StansGroceryForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(407, 442)
-        Me.Controls.Add(Me.CategoryLabel)
-        Me.Controls.Add(Me.AisleNumberLabel)
-        Me.Controls.Add(Me.ItemLabel)
+        Me.ClientSize = New System.Drawing.Size(407, 466)
+        Me.Controls.Add(Me.DisplayLabel)
         Me.Controls.Add(Me.TopMenuStrip)
         Me.Controls.Add(Me.DisplayListBox)
         Me.Controls.Add(Me.SearchButton)
@@ -278,7 +255,5 @@ Partial Class StansGroceryForm
     Friend WithEvents AboutTopMenuButton As ToolStripMenuItem
     Friend WithEvents MainToolTip As ToolTip
     Friend WithEvents NoneRadioButton As RadioButton
-    Friend WithEvents ItemLabel As Label
-    Friend WithEvents AisleNumberLabel As Label
-    Friend WithEvents CategoryLabel As Label
+    Friend WithEvents DisplayLabel As Label
 End Class

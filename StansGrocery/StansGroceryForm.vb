@@ -97,11 +97,9 @@ Public Class StansGroceryForm
                     If Not FilterComboBox.Items.Contains((temp(filter)).TrimStart) Then
                         FilterComboBox.Items.Add((temp(filter)).TrimStart)
                     End If
-
                 Next
             End If
         End If
-
 
     End Sub
 
@@ -132,17 +130,22 @@ Public Class StansGroceryForm
         End If
 
         If DisplayListBox.Items.Count = 0 Then
-            DisplayListBox.Items.Add("Sorry! Item not found.")
+            DisplayLabel.Text = $"Sorry, there were no matches for {SearchTextBox.Text}"
         End If
 
     End Sub
 
-    Sub Display()
+    Sub DisplaySelectedListBoxItem()
+
+        For Each matchingIndex As String In productList
+            If matchingIndex.StartsWith(DisplayListBox.SelectedItem.ToString()) Then
+                FilterComboBox.Text = matchingIndex
+            End If
+        Next
 
     End Sub
 
     'Event Handlers Below Here
-
 
 
     Private Sub StansGrocery_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -161,7 +164,7 @@ Public Class StansGroceryForm
     End Sub
 
     Private Sub DisplayListBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles DisplayListBox.SelectedIndexChanged
-        Display()
+        DisplaySelectedListBoxItem()
     End Sub
 
     Private Sub FilterComboBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles FilterComboBox.SelectedIndexChanged
@@ -228,15 +231,4 @@ Public Class StansGroceryForm
         UpdateComboBox()
     End Sub
 
-    Private Sub CategoryLabel_Click(sender As Object, e As EventArgs) Handles CategoryLabel.Click
-
-    End Sub
-
-    Private Sub AisleNumberLabel_Click(sender As Object, e As EventArgs) Handles AisleNumberLabel.Click
-
-    End Sub
-
-    Private Sub ItemLabel_Click(sender As Object, e As EventArgs) Handles ItemLabel.Click
-
-    End Sub
 End Class
