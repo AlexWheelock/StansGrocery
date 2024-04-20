@@ -38,7 +38,7 @@ Public Class StansGroceryForm
             If item(1) <> "" Then
                 If location(1) <> "" Then
                     If category(1) <> "" Then
-                        Me.productList.Add(($"{item(1)}").PadRight(30) & "," & $"{location(1).PadRight(6)}, {category(1)}")
+                        Me.productList.Add(($"{item(1)},").PadRight(28) & ($"{location(1)},").PadRight(6) & ($"{category(1)}"))
                     End If
                 End If
             End If
@@ -52,7 +52,7 @@ Public Class StansGroceryForm
         Dim temp() As String
 
         For Each product As String In productList
-            temp = Split(product)
+            temp = Split(product, ",")
             DisplayListBox.Items.Add(temp(0))
         Next
     End Sub
@@ -78,22 +78,31 @@ Public Class StansGroceryForm
         End If
 
 
-        If filter = 1 Then
-            FilterComboBox.Sorted = False
-            FilterComboBox.Items.Add(CStr(0))
-            For aisle = 2 To 17
-                FilterComboBox.Items.Add(CStr(aisle))
-            Next
-        Else
+        If filter = 0 Then
             FilterComboBox.Sorted = True
             For Each filteredItem As String In productList
-                temp = Split(filteredItem, ",")
+                FilterComboBox.Items.Add(filteredItem)
+            Next
+        Else
+            If filter = 1 Then
+                FilterComboBox.Sorted = False
+                FilterComboBox.Items.Add(CStr(0))
+                For aisle = 2 To 17
+                    FilterComboBox.Items.Add(CStr(aisle))
+                Next
+            Else
                 FilterComboBox.Sorted = True
-            If Not FilterComboBox.Items.Contains(temp(filter)) Then
-                FilterComboBox.Items.Add(temp(filter))
+                For Each filteredItem As String In productList
+                    temp = Split(filteredItem, ",")
+                    If Not FilterComboBox.Items.Contains((temp(filter)).TrimStart) Then
+                        FilterComboBox.Items.Add((temp(filter)).TrimStart)
+                    End If
+
+                Next
             End If
-        Next
         End If
+
+
     End Sub
 
     Sub SearchForItem()

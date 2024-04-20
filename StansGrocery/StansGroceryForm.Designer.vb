@@ -90,9 +90,9 @@ Partial Class StansGroceryForm
         '
         Me.FilterComboBox.Font = New System.Drawing.Font("Consolas", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FilterComboBox.FormattingEnabled = True
-        Me.FilterComboBox.Location = New System.Drawing.Point(6, 89)
+        Me.FilterComboBox.Location = New System.Drawing.Point(11, 89)
         Me.FilterComboBox.Name = "FilterComboBox"
-        Me.FilterComboBox.Size = New System.Drawing.Size(329, 21)
+        Me.FilterComboBox.Size = New System.Drawing.Size(363, 21)
         Me.FilterComboBox.Sorted = True
         Me.FilterComboBox.TabIndex = 4
         '
@@ -103,9 +103,9 @@ Partial Class StansGroceryForm
         Me.FilterGroupBox.Controls.Add(Me.FilterByAisleRadioButton)
         Me.FilterGroupBox.Controls.Add(Me.FilterComboBox)
         Me.FilterGroupBox.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.FilterGroupBox.Location = New System.Drawing.Point(33, 73)
+        Me.FilterGroupBox.Location = New System.Drawing.Point(12, 73)
         Me.FilterGroupBox.Name = "FilterGroupBox"
-        Me.FilterGroupBox.Size = New System.Drawing.Size(341, 117)
+        Me.FilterGroupBox.Size = New System.Drawing.Size(383, 117)
         Me.FilterGroupBox.TabIndex = 5
         Me.FilterGroupBox.TabStop = False
         Me.FilterGroupBox.Text = "Filter By:"
