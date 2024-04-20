@@ -28,7 +28,7 @@ Partial Class SplashScreenForm
         '
         'WaitTimer
         '
-        Me.WaitTimer.Interval = 500
+        Me.WaitTimer.Interval = 1000
         '
         'SplashScreenForm
         '

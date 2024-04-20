@@ -29,8 +29,8 @@ Partial Class StansGroceryForm
         Me.DisplayListBox = New System.Windows.Forms.ListBox()
         Me.FilterComboBox = New System.Windows.Forms.ComboBox()
         Me.FilterGroupBox = New System.Windows.Forms.GroupBox()
-        Me.FilterByAisleRadioButton = New System.Windows.Forms.RadioButton()
         Me.FilterByCategoryRadioButton = New System.Windows.Forms.RadioButton()
+        Me.FilterByAisleRadioButton = New System.Windows.Forms.RadioButton()
         Me.MainContextMenuStrip = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.SearchContextMenuButton = New System.Windows.Forms.ToolStripMenuItem()
         Me.ExitContextMenuButton = New System.Windows.Forms.ToolStripMenuItem()
@@ -41,6 +41,7 @@ Partial Class StansGroceryForm
         Me.HelpTopMenuButton = New System.Windows.Forms.ToolStripMenuItem()
         Me.AboutTopMenuButton = New System.Windows.Forms.ToolStripMenuItem()
         Me.MainToolTip = New System.Windows.Forms.ToolTip(Me.components)
+        Me.FilterByItemRadioButton = New System.Windows.Forms.RadioButton()
         Me.FilterGroupBox.SuspendLayout()
         Me.MainContextMenuStrip.SuspendLayout()
         Me.TopMenuStrip.SuspendLayout()
@@ -48,7 +49,7 @@ Partial Class StansGroceryForm
         '
         'SearchTextBox
         '
-        Me.SearchTextBox.Location = New System.Drawing.Point(80, 35)
+        Me.SearchTextBox.Location = New System.Drawing.Point(79, 36)
         Me.SearchTextBox.Name = "SearchTextBox"
         Me.SearchTextBox.Size = New System.Drawing.Size(229, 20)
         Me.SearchTextBox.TabIndex = 0
@@ -56,7 +57,7 @@ Partial Class StansGroceryForm
         'SearchLabel
         '
         Me.SearchLabel.AutoSize = True
-        Me.SearchLabel.Location = New System.Drawing.Point(30, 38)
+        Me.SearchLabel.Location = New System.Drawing.Point(29, 39)
         Me.SearchLabel.Name = "SearchLabel"
         Me.SearchLabel.Size = New System.Drawing.Size(44, 13)
         Me.SearchLabel.TabIndex = 1
@@ -64,7 +65,7 @@ Partial Class StansGroceryForm
         '
         'SearchButton
         '
-        Me.SearchButton.Location = New System.Drawing.Point(315, 33)
+        Me.SearchButton.Location = New System.Drawing.Point(314, 34)
         Me.SearchButton.Name = "SearchButton"
         Me.SearchButton.Size = New System.Drawing.Size(59, 23)
         Me.SearchButton.TabIndex = 2
@@ -74,24 +75,26 @@ Partial Class StansGroceryForm
         'DisplayListBox
         '
         Me.DisplayListBox.FormattingEnabled = True
-        Me.DisplayListBox.Location = New System.Drawing.Point(58, 168)
+        Me.DisplayListBox.Location = New System.Drawing.Point(58, 195)
         Me.DisplayListBox.Name = "DisplayListBox"
         Me.DisplayListBox.Size = New System.Drawing.Size(304, 212)
+        Me.DisplayListBox.Sorted = True
         Me.DisplayListBox.TabIndex = 3
         '
         'FilterComboBox
         '
         Me.FilterComboBox.FormattingEnabled = True
-        Me.FilterComboBox.Location = New System.Drawing.Point(25, 62)
+        Me.FilterComboBox.Location = New System.Drawing.Point(58, 168)
         Me.FilterComboBox.Name = "FilterComboBox"
         Me.FilterComboBox.Size = New System.Drawing.Size(304, 21)
         Me.FilterComboBox.TabIndex = 4
         '
         'FilterGroupBox
         '
-        Me.FilterGroupBox.Controls.Add(Me.FilterComboBox)
+        Me.FilterGroupBox.Controls.Add(Me.FilterByItemRadioButton)
         Me.FilterGroupBox.Controls.Add(Me.FilterByCategoryRadioButton)
         Me.FilterGroupBox.Controls.Add(Me.FilterByAisleRadioButton)
+        Me.FilterGroupBox.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.FilterGroupBox.Location = New System.Drawing.Point(33, 73)
         Me.FilterGroupBox.Name = "FilterGroupBox"
         Me.FilterGroupBox.Size = New System.Drawing.Size(341, 89)
@@ -99,27 +102,27 @@ Partial Class StansGroceryForm
         Me.FilterGroupBox.TabStop = False
         Me.FilterGroupBox.Text = "Filter By:"
         '
-        'FilterByAisleRadioButton
-        '
-        Me.FilterByAisleRadioButton.AutoSize = True
-        Me.FilterByAisleRadioButton.Location = New System.Drawing.Point(25, 19)
-        Me.FilterByAisleRadioButton.Name = "FilterByAisleRadioButton"
-        Me.FilterByAisleRadioButton.Size = New System.Drawing.Size(47, 17)
-        Me.FilterByAisleRadioButton.TabIndex = 0
-        Me.FilterByAisleRadioButton.TabStop = True
-        Me.FilterByAisleRadioButton.Text = "Aisle"
-        Me.FilterByAisleRadioButton.UseVisualStyleBackColor = True
-        '
         'FilterByCategoryRadioButton
         '
         Me.FilterByCategoryRadioButton.AutoSize = True
-        Me.FilterByCategoryRadioButton.Location = New System.Drawing.Point(25, 42)
+        Me.FilterByCategoryRadioButton.Location = New System.Drawing.Point(25, 66)
         Me.FilterByCategoryRadioButton.Name = "FilterByCategoryRadioButton"
         Me.FilterByCategoryRadioButton.Size = New System.Drawing.Size(67, 17)
         Me.FilterByCategoryRadioButton.TabIndex = 1
         Me.FilterByCategoryRadioButton.TabStop = True
         Me.FilterByCategoryRadioButton.Text = "Category"
         Me.FilterByCategoryRadioButton.UseVisualStyleBackColor = True
+        '
+        'FilterByAisleRadioButton
+        '
+        Me.FilterByAisleRadioButton.AutoSize = True
+        Me.FilterByAisleRadioButton.Location = New System.Drawing.Point(25, 43)
+        Me.FilterByAisleRadioButton.Name = "FilterByAisleRadioButton"
+        Me.FilterByAisleRadioButton.Size = New System.Drawing.Size(47, 17)
+        Me.FilterByAisleRadioButton.TabIndex = 0
+        Me.FilterByAisleRadioButton.TabStop = True
+        Me.FilterByAisleRadioButton.Text = "Aisle"
+        Me.FilterByAisleRadioButton.UseVisualStyleBackColor = True
         '
         'MainContextMenuStrip
         '
@@ -158,13 +161,13 @@ Partial Class StansGroceryForm
         'SearchTopMenuButton
         '
         Me.SearchTopMenuButton.Name = "SearchTopMenuButton"
-        Me.SearchTopMenuButton.Size = New System.Drawing.Size(180, 22)
+        Me.SearchTopMenuButton.Size = New System.Drawing.Size(109, 22)
         Me.SearchTopMenuButton.Text = "&Search"
         '
         'ExitTopMenuButton
         '
         Me.ExitTopMenuButton.Name = "ExitTopMenuButton"
-        Me.ExitTopMenuButton.Size = New System.Drawing.Size(180, 22)
+        Me.ExitTopMenuButton.Size = New System.Drawing.Size(109, 22)
         Me.ExitTopMenuButton.Text = "E&xit"
         '
         'HelpTopMenuButton
@@ -177,17 +180,30 @@ Partial Class StansGroceryForm
         'AboutTopMenuButton
         '
         Me.AboutTopMenuButton.Name = "AboutTopMenuButton"
-        Me.AboutTopMenuButton.Size = New System.Drawing.Size(180, 22)
+        Me.AboutTopMenuButton.Size = New System.Drawing.Size(107, 22)
         Me.AboutTopMenuButton.Text = "&About"
         '
         'MainToolTip
         '
         '
+        'FilterByItemRadioButton
+        '
+        Me.FilterByItemRadioButton.AutoSize = True
+        Me.FilterByItemRadioButton.Checked = True
+        Me.FilterByItemRadioButton.Location = New System.Drawing.Point(25, 20)
+        Me.FilterByItemRadioButton.Name = "FilterByItemRadioButton"
+        Me.FilterByItemRadioButton.Size = New System.Drawing.Size(45, 17)
+        Me.FilterByItemRadioButton.TabIndex = 2
+        Me.FilterByItemRadioButton.TabStop = True
+        Me.FilterByItemRadioButton.Text = "Item"
+        Me.FilterByItemRadioButton.UseVisualStyleBackColor = True
+        '
         'StansGroceryForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(407, 409)
+        Me.ClientSize = New System.Drawing.Size(407, 418)
+        Me.Controls.Add(Me.FilterComboBox)
         Me.Controls.Add(Me.TopMenuStrip)
         Me.Controls.Add(Me.DisplayListBox)
         Me.Controls.Add(Me.SearchButton)
@@ -226,4 +242,5 @@ Partial Class StansGroceryForm
     Friend WithEvents HelpTopMenuButton As ToolStripMenuItem
     Friend WithEvents AboutTopMenuButton As ToolStripMenuItem
     Friend WithEvents MainToolTip As ToolTip
+    Friend WithEvents FilterByItemRadioButton As RadioButton
 End Class
