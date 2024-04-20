@@ -29,6 +29,7 @@ Partial Class StansGroceryForm
         Me.DisplayListBox = New System.Windows.Forms.ListBox()
         Me.FilterComboBox = New System.Windows.Forms.ComboBox()
         Me.FilterGroupBox = New System.Windows.Forms.GroupBox()
+        Me.NoneRadioButton = New System.Windows.Forms.RadioButton()
         Me.FilterByCategoryRadioButton = New System.Windows.Forms.RadioButton()
         Me.FilterByAisleRadioButton = New System.Windows.Forms.RadioButton()
         Me.MainContextMenuStrip = New System.Windows.Forms.ContextMenuStrip(Me.components)
@@ -41,7 +42,6 @@ Partial Class StansGroceryForm
         Me.HelpTopMenuButton = New System.Windows.Forms.ToolStripMenuItem()
         Me.AboutTopMenuButton = New System.Windows.Forms.ToolStripMenuItem()
         Me.MainToolTip = New System.Windows.Forms.ToolTip(Me.components)
-        Me.FilterByItemRadioButton = New System.Windows.Forms.RadioButton()
         Me.ItemLabel = New System.Windows.Forms.Label()
         Me.AisleNumberLabel = New System.Windows.Forms.Label()
         Me.CategoryLabel = New System.Windows.Forms.Label()
@@ -90,23 +90,37 @@ Partial Class StansGroceryForm
         '
         Me.FilterComboBox.Font = New System.Drawing.Font("Consolas", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FilterComboBox.FormattingEnabled = True
-        Me.FilterComboBox.Location = New System.Drawing.Point(23, 168)
+        Me.FilterComboBox.Location = New System.Drawing.Point(6, 89)
         Me.FilterComboBox.Name = "FilterComboBox"
-        Me.FilterComboBox.Size = New System.Drawing.Size(363, 21)
+        Me.FilterComboBox.Size = New System.Drawing.Size(329, 21)
+        Me.FilterComboBox.Sorted = True
         Me.FilterComboBox.TabIndex = 4
         '
         'FilterGroupBox
         '
-        Me.FilterGroupBox.Controls.Add(Me.FilterByItemRadioButton)
+        Me.FilterGroupBox.Controls.Add(Me.NoneRadioButton)
         Me.FilterGroupBox.Controls.Add(Me.FilterByCategoryRadioButton)
         Me.FilterGroupBox.Controls.Add(Me.FilterByAisleRadioButton)
+        Me.FilterGroupBox.Controls.Add(Me.FilterComboBox)
         Me.FilterGroupBox.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.FilterGroupBox.Location = New System.Drawing.Point(33, 73)
         Me.FilterGroupBox.Name = "FilterGroupBox"
-        Me.FilterGroupBox.Size = New System.Drawing.Size(341, 89)
+        Me.FilterGroupBox.Size = New System.Drawing.Size(341, 117)
         Me.FilterGroupBox.TabIndex = 5
         Me.FilterGroupBox.TabStop = False
         Me.FilterGroupBox.Text = "Filter By:"
+        '
+        'NoneRadioButton
+        '
+        Me.NoneRadioButton.AutoSize = True
+        Me.NoneRadioButton.Checked = True
+        Me.NoneRadioButton.Location = New System.Drawing.Point(25, 20)
+        Me.NoneRadioButton.Name = "NoneRadioButton"
+        Me.NoneRadioButton.Size = New System.Drawing.Size(51, 17)
+        Me.NoneRadioButton.TabIndex = 2
+        Me.NoneRadioButton.TabStop = True
+        Me.NoneRadioButton.Text = "None"
+        Me.NoneRadioButton.UseVisualStyleBackColor = True
         '
         'FilterByCategoryRadioButton
         '
@@ -190,18 +204,6 @@ Partial Class StansGroceryForm
         'MainToolTip
         '
         '
-        'FilterByItemRadioButton
-        '
-        Me.FilterByItemRadioButton.AutoSize = True
-        Me.FilterByItemRadioButton.Checked = True
-        Me.FilterByItemRadioButton.Location = New System.Drawing.Point(25, 20)
-        Me.FilterByItemRadioButton.Name = "FilterByItemRadioButton"
-        Me.FilterByItemRadioButton.Size = New System.Drawing.Size(45, 17)
-        Me.FilterByItemRadioButton.TabIndex = 2
-        Me.FilterByItemRadioButton.TabStop = True
-        Me.FilterByItemRadioButton.Text = "Item"
-        Me.FilterByItemRadioButton.UseVisualStyleBackColor = True
-        '
         'ItemLabel
         '
         Me.ItemLabel.AutoSize = True
@@ -237,7 +239,6 @@ Partial Class StansGroceryForm
         Me.Controls.Add(Me.CategoryLabel)
         Me.Controls.Add(Me.AisleNumberLabel)
         Me.Controls.Add(Me.ItemLabel)
-        Me.Controls.Add(Me.FilterComboBox)
         Me.Controls.Add(Me.TopMenuStrip)
         Me.Controls.Add(Me.DisplayListBox)
         Me.Controls.Add(Me.SearchButton)
@@ -276,7 +277,7 @@ Partial Class StansGroceryForm
     Friend WithEvents HelpTopMenuButton As ToolStripMenuItem
     Friend WithEvents AboutTopMenuButton As ToolStripMenuItem
     Friend WithEvents MainToolTip As ToolTip
-    Friend WithEvents FilterByItemRadioButton As RadioButton
+    Friend WithEvents NoneRadioButton As RadioButton
     Friend WithEvents ItemLabel As Label
     Friend WithEvents AisleNumberLabel As Label
     Friend WithEvents CategoryLabel As Label

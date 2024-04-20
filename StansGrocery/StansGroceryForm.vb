@@ -38,57 +38,65 @@ Public Class StansGroceryForm
             If item(1) <> "" Then
                 If location(1) <> "" Then
                     If category(1) <> "" Then
-                        Me.productList.Add(($"{item(1)}").PadRight(30) & $"{location(1).PadRight(6)} {category(1)}")
+                        Me.productList.Add(($"{item(1)}").PadRight(30) & "," & $"{location(1).PadRight(6)}, {category(1)}")
                     End If
                 End If
             End If
         Loop
         RefillDisplayListBox()
+        UpdateComboBox()
         FileClose(1)
     End Sub
 
     Sub RefillDisplayListBox()
+        Dim temp() As String
+
         For Each product As String In productList
-            DisplayListBox.Items.Add(product)
+            temp = Split(product)
+            DisplayListBox.Items.Add(temp(0))
         Next
+    End Sub
+
+    Sub UpdateComboBox()
+        Dim temp() As String
+        Dim filter As Integer = 0
+        Dim tempList As New List(Of Integer)
+
+        FilterComboBox.Text = ""
+        FilterComboBox.Items.Clear()
+
+        If NoneRadioButton.Checked = True Then
+            filter = 0
+        Else
+            If FilterByAisleRadioButton.Checked = True Then
+                filter = 1
+            Else
+                If FilterByCategoryRadioButton.Checked = True Then
+                    filter = 2
+                End If
+            End If
+        End If
+
+
+        If filter = 1 Then
+            FilterComboBox.Sorted = False
+            FilterComboBox.Items.Add(CStr(0))
+            For aisle = 2 To 17
+                FilterComboBox.Items.Add(CStr(aisle))
+            Next
+        Else
+            FilterComboBox.Sorted = True
+            For Each filteredItem As String In productList
+                temp = Split(filteredItem, ",")
+                FilterComboBox.Sorted = True
+            If Not FilterComboBox.Items.Contains(temp(filter)) Then
+                FilterComboBox.Items.Add(temp(filter))
+            End If
+        Next
+        End If
     End Sub
 
     Sub SearchForItem()
-        Dim temp() As String
-        Dim search As Integer = 0
-
-        If FilterByAisleRadioButton.Checked = True Then
-            search = 1
-        End If
-
-        If FilterByCategoryRadioButton.Checked = True Then
-            search = 2
-        End If
-
-        DisplayListBox.Items.Clear()
-
-        For Each matchingProduct As String In productList
-            temp = Split(matchingProduct)
-            If temp(search).StartsWith(SearchTextBox.Text, StringComparison.CurrentCultureIgnoreCase) Then
-                DisplayListBox.Items.Add(matchingProduct)
-            End If
-        Next
-
-    End Sub
-
-    Sub Display()
-
-    End Sub
-
-    'Event Handlers Below Here
-
-
-
-    Private Sub StansGrocery_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        ReadProductInfo()
-    End Sub
-
-    Private Sub SearchTextBox_TextChanged(sender As Object, e As EventArgs) Handles SearchTextBox.TextChanged
         Dim temp() As String
         Dim search As Integer = 0
 
@@ -106,11 +114,36 @@ Public Class StansGroceryForm
             For Each matchingProduct As String In productList
                 temp = Split(matchingProduct)
                 If temp(search).StartsWith(SearchTextBox.Text, StringComparison.CurrentCultureIgnoreCase) Then
-                    DisplayListBox.Items.Add(matchingProduct)
+                    DisplayListBox.Items.Add(temp(0))
                 End If
             Next
         Else
             RefillDisplayListBox()
+            UpdateComboBox()
+        End If
+
+        If DisplayListBox.Items.Count = 0 Then
+            DisplayListBox.Items.Add("Sorry! Item not found.")
+        End If
+
+    End Sub
+
+    Sub Display()
+
+    End Sub
+
+    'Event Handlers Below Here
+
+
+
+    Private Sub StansGrocery_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ReadProductInfo()
+    End Sub
+
+    Private Sub SearchTextBox_TextChanged(sender As Object, e As EventArgs) Handles SearchTextBox.TextChanged
+        SearchForItem()
+        If SearchTextBox.Text = "zzz" Then
+            Me.Close()
         End If
     End Sub
 
@@ -135,11 +168,11 @@ Public Class StansGroceryForm
     End Sub
 
     Private Sub FilterByAisleRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles FilterByAisleRadioButton.CheckedChanged
-
+        UpdateComboBox()
     End Sub
 
     Private Sub FilterByCategoryRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles FilterByCategoryRadioButton.CheckedChanged
-
+        UpdateComboBox()
     End Sub
 
     Private Sub MainContextMenuStrip_Opening(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles MainContextMenuStrip.Opening
@@ -182,8 +215,8 @@ Public Class StansGroceryForm
 
     End Sub
 
-    Private Sub FilterByItemRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles FilterByItemRadioButton.CheckedChanged
-
+    Private Sub NoneRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles NoneRadioButton.CheckedChanged
+        UpdateComboBox()
     End Sub
 
     Private Sub CategoryLabel_Click(sender As Object, e As EventArgs) Handles CategoryLabel.Click
