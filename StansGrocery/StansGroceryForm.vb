@@ -38,7 +38,7 @@ Public Class StansGroceryForm
             If item(1) <> "" Then
                 If location(1) <> "" Then
                     If category(1) <> "" Then
-                        Me.productList.Add($"{item(1)}, Aisle {location(1)}, Category: {category(1)}")
+                        Me.productList.Add(($"{item(1)}").PadRight(30) & $"{location(1).PadRight(6)} {category(1)}")
                     End If
                 End If
             End If
@@ -183,6 +183,18 @@ Public Class StansGroceryForm
     End Sub
 
     Private Sub FilterByItemRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles FilterByItemRadioButton.CheckedChanged
+
+    End Sub
+
+    Private Sub CategoryLabel_Click(sender As Object, e As EventArgs) Handles CategoryLabel.Click
+
+    End Sub
+
+    Private Sub AisleNumberLabel_Click(sender As Object, e As EventArgs) Handles AisleNumberLabel.Click
+
+    End Sub
+
+    Private Sub ItemLabel_Click(sender As Object, e As EventArgs) Handles ItemLabel.Click
 
     End Sub
 End Class
