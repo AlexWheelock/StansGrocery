@@ -78,14 +78,15 @@ Partial Class StansGroceryForm
         '
         Me.DisplayListBox.Font = New System.Drawing.Font("Consolas", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DisplayListBox.FormattingEnabled = True
-        Me.DisplayListBox.Location = New System.Drawing.Point(23, 240)
+        Me.DisplayListBox.Location = New System.Drawing.Point(417, 39)
         Me.DisplayListBox.Name = "DisplayListBox"
-        Me.DisplayListBox.Size = New System.Drawing.Size(363, 212)
+        Me.DisplayListBox.Size = New System.Drawing.Size(169, 303)
         Me.DisplayListBox.Sorted = True
         Me.DisplayListBox.TabIndex = 3
         '
         'FilterComboBox
         '
+        Me.FilterComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.FilterComboBox.Font = New System.Drawing.Font("Consolas", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FilterComboBox.FormattingEnabled = True
         Me.FilterComboBox.Location = New System.Drawing.Point(11, 89)
@@ -101,7 +102,7 @@ Partial Class StansGroceryForm
         Me.FilterGroupBox.Controls.Add(Me.FilterByAisleRadioButton)
         Me.FilterGroupBox.Controls.Add(Me.FilterComboBox)
         Me.FilterGroupBox.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.FilterGroupBox.Location = New System.Drawing.Point(12, 95)
+        Me.FilterGroupBox.Location = New System.Drawing.Point(12, 73)
         Me.FilterGroupBox.Name = "FilterGroupBox"
         Me.FilterGroupBox.Size = New System.Drawing.Size(383, 117)
         Me.FilterGroupBox.TabIndex = 5
@@ -163,7 +164,7 @@ Partial Class StansGroceryForm
         Me.TopMenuStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileTopMenuButton, Me.HelpTopMenuButton})
         Me.TopMenuStrip.Location = New System.Drawing.Point(0, 0)
         Me.TopMenuStrip.Name = "TopMenuStrip"
-        Me.TopMenuStrip.Size = New System.Drawing.Size(407, 24)
+        Me.TopMenuStrip.Size = New System.Drawing.Size(598, 24)
         Me.TopMenuStrip.TabIndex = 7
         Me.TopMenuStrip.Text = "MenuStrip"
         '
@@ -205,16 +206,17 @@ Partial Class StansGroceryForm
         'DisplayLabel
         '
         Me.DisplayLabel.AutoSize = True
-        Me.DisplayLabel.Location = New System.Drawing.Point(76, 70)
+        Me.DisplayLabel.Location = New System.Drawing.Point(20, 216)
         Me.DisplayLabel.Name = "DisplayLabel"
-        Me.DisplayLabel.Size = New System.Drawing.Size(0, 13)
+        Me.DisplayLabel.Size = New System.Drawing.Size(58, 13)
         Me.DisplayLabel.TabIndex = 5
+        Me.DisplayLabel.Text = "Blank Text"
         '
         'StansGroceryForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(407, 466)
+        Me.ClientSize = New System.Drawing.Size(598, 352)
         Me.Controls.Add(Me.DisplayLabel)
         Me.Controls.Add(Me.TopMenuStrip)
         Me.Controls.Add(Me.DisplayListBox)

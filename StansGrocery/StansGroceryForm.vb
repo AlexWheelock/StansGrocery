@@ -145,6 +145,31 @@ Public Class StansGroceryForm
 
     End Sub
 
+    Sub FilterItems()
+        Dim temp() As String
+        Dim search As Integer = 0
+
+        If FilterByAisleRadioButton.Checked = True Then
+            search = 1
+        End If
+
+        If FilterByCategoryRadioButton.Checked = True Then
+            search = 2
+        End If
+
+
+
+
+    End Sub
+
+    Sub SelectItemOrCategory()
+
+        DisplayListBox.SelectedItem = FilterComboBox.SelectedItem
+
+
+
+    End Sub
+
     'Event Handlers Below Here
 
 
@@ -168,7 +193,7 @@ Public Class StansGroceryForm
     End Sub
 
     Private Sub FilterComboBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles FilterComboBox.SelectedIndexChanged
-
+        DisplayListBox.SelectedIndex = FilterComboBox.SelectedIndex
     End Sub
 
     Private Sub SearchButton_Click(sender As Object, e As EventArgs) Handles SearchButton.Click
@@ -229,6 +254,10 @@ Public Class StansGroceryForm
 
     Private Sub NoneRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles NoneRadioButton.CheckedChanged
         UpdateComboBox()
+    End Sub
+
+    Private Sub DisplayListBox_SelectedValueChanged(sender As Object, e As EventArgs) Handles DisplayListBox.SelectedValueChanged
+        FilterComboBox.SelectedItem = DisplayListBox.SelectedItem
     End Sub
 
 End Class
