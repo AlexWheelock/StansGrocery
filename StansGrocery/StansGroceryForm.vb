@@ -1,12 +1,14 @@
-﻿'Alex Wheelock
+﻿Option Strict On
+Option Explicit On
+Option Compare Text
+'Alex Wheelock
 'RCET 0265
 'Spring 2024
 'Stan's Grocery
 'https://github.com/AlexWheelock/StansGrocery.git
 
-Option Strict On
-Option Explicit On
-Option Compare Text
+Imports System.CodeDom.Compiler
+
 Public Class StansGroceryForm
 
     'List containing all of the product and their corresponding info
@@ -53,7 +55,9 @@ Public Class StansGroceryForm
 
         For Each product As String In productList
             temp = Split(product, ",")
-            DisplayListBox.Items.Add(temp(0))
+            If Not DisplayListBox.Items.Contains(temp(0)) Then
+                DisplayListBox.Items.Add(temp(0))
+            End If
         Next
     End Sub
 
@@ -135,38 +139,45 @@ Public Class StansGroceryForm
 
     End Sub
 
-    Sub DisplaySelectedListBoxItem()
-
-        For Each matchingIndex As String In productList
-            If matchingIndex.StartsWith(DisplayListBox.SelectedItem.ToString()) Then
-                FilterComboBox.Text = matchingIndex
-            End If
-        Next
-
-    End Sub
-
-    Sub FilterItems()
+    Sub SelectedAisleOrCategory()
         Dim temp() As String
-        Dim search As Integer = 0
+        Dim filter As Integer = 0
 
         If FilterByAisleRadioButton.Checked = True Then
-            search = 1
+            filter = 1
         End If
 
         If FilterByCategoryRadioButton.Checked = True Then
-            search = 2
+            filter = 2
         End If
 
+        If filter = 0 Then
+        Else
+            DisplayListBox.Items.Clear()
 
+            For Each matchingFilter As String In productList
+                temp = Split(matchingFilter, ",")
 
-
+                If temp(filter).TrimStart.StartsWith(CStr(FilterComboBox.SelectedItem)) Then
+                    DisplayListBox.Items.Add(temp(0))
+                End If
+            Next
+        End If
     End Sub
 
-    Sub SelectItemOrCategory()
+    Sub UpdateDisplayLabel()
+        Dim temp() As String
 
-        DisplayListBox.SelectedItem = FilterComboBox.SelectedItem
+        DisplayLabel.Visible = True
+        DisplayLabel.Text = ""
 
+        temp = Split(FilterComboBox.Text, ",")
 
+        DisplayLabel.Text = $"{temp(0).TrimStart} is on Aisle #{temp(1).TrimStart}, in the {temp(2).TrimStart} section"
+
+        If DisplayLabel.Text = "" Then
+            DisplayLabel.Text = $"Sorry, there were no matches for {SearchTextBox.Text}"
+        End If
 
     End Sub
 
@@ -184,52 +195,33 @@ Public Class StansGroceryForm
         End If
     End Sub
 
-    Private Sub SearchLabel_Click(sender As Object, e As EventArgs) Handles SearchLabel.Click
-
-    End Sub
-
-    Private Sub DisplayListBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles DisplayListBox.SelectedIndexChanged
-        DisplaySelectedListBoxItem()
-    End Sub
-
     Private Sub FilterComboBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles FilterComboBox.SelectedIndexChanged
         DisplayListBox.SelectedIndex = FilterComboBox.SelectedIndex
+        SelectedAisleOrCategory()
+        UpdateDisplayLabel()
     End Sub
 
     Private Sub SearchButton_Click(sender As Object, e As EventArgs) Handles SearchButton.Click
         SearchForItem()
     End Sub
 
-    Private Sub FilterGroupBox_Enter(sender As Object, e As EventArgs) Handles FilterGroupBox.Enter
-
-    End Sub
-
     Private Sub FilterByAisleRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles FilterByAisleRadioButton.CheckedChanged
         UpdateComboBox()
+        RefillDisplayListBox()
     End Sub
 
     Private Sub FilterByCategoryRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles FilterByCategoryRadioButton.CheckedChanged
         UpdateComboBox()
+        RefillDisplayListBox()
     End Sub
 
-    Private Sub MainContextMenuStrip_Opening(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles MainContextMenuStrip.Opening
-
-    End Sub
 
     Private Sub SearchContextMenuButton_Click(sender As Object, e As EventArgs) Handles SearchContextMenuButton.Click
 
     End Sub
 
     Private Sub ExitContextMenuButton_Click(sender As Object, e As EventArgs) Handles ExitContextMenuButton.Click
-
-    End Sub
-
-    Private Sub TopMenuStrip_ItemClicked(sender As Object, e As ToolStripItemClickedEventArgs) Handles TopMenuStrip.ItemClicked
-
-    End Sub
-
-    Private Sub FileTopMenuButton_Click(sender As Object, e As EventArgs) Handles FileTopMenuButton.Click
-
+        Me.Close()
     End Sub
 
     Private Sub SearchTopMenuButton_Click(sender As Object, e As EventArgs) Handles SearchTopMenuButton.Click
@@ -237,27 +229,20 @@ Public Class StansGroceryForm
     End Sub
 
     Private Sub ExitTopMenuButton_Click(sender As Object, e As EventArgs) Handles ExitTopMenuButton.Click
-
-    End Sub
-
-    Private Sub HelpTopMenuButton_Click(sender As Object, e As EventArgs) Handles HelpTopMenuButton.Click
-
+        Me.Close()
     End Sub
 
     Private Sub AboutTopMenuButton_Click(sender As Object, e As EventArgs) Handles AboutTopMenuButton.Click
 
     End Sub
 
-    Private Sub MainToolTip_Popup(sender As Object, e As PopupEventArgs) Handles MainToolTip.Popup
-
-    End Sub
-
     Private Sub NoneRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles NoneRadioButton.CheckedChanged
         UpdateComboBox()
+        RefillDisplayListBox()
     End Sub
 
-    Private Sub DisplayListBox_SelectedValueChanged(sender As Object, e As EventArgs) Handles DisplayListBox.SelectedValueChanged
-        FilterComboBox.SelectedItem = DisplayListBox.SelectedItem
+    Private Sub DisplayListBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles DisplayListBox.SelectedIndexChanged
+        FilterComboBox.SelectedIndex = DisplayListBox.SelectedIndex
+        UpdateDisplayLabel()
     End Sub
-
 End Class

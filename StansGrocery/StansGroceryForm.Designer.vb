@@ -200,9 +200,6 @@ Partial Class StansGroceryForm
         Me.AboutTopMenuButton.Size = New System.Drawing.Size(107, 22)
         Me.AboutTopMenuButton.Text = "&About"
         '
-        'MainToolTip
-        '
-        '
         'DisplayLabel
         '
         Me.DisplayLabel.AutoSize = True
@@ -211,6 +208,7 @@ Partial Class StansGroceryForm
         Me.DisplayLabel.Size = New System.Drawing.Size(58, 13)
         Me.DisplayLabel.TabIndex = 5
         Me.DisplayLabel.Text = "Blank Text"
+        Me.DisplayLabel.Visible = False
         '
         'StansGroceryForm
         '
