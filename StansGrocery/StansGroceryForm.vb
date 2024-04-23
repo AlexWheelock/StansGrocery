@@ -109,33 +109,29 @@ Public Class StansGroceryForm
 
     Sub SearchForItem()
         Dim temp() As String
-        Dim search As Integer = 0
-
-        If FilterByAisleRadioButton.Checked = True Then
-            search = 1
-        End If
-
-        If FilterByCategoryRadioButton.Checked = True Then
-            search = 2
-        End If
 
         DisplayListBox.Items.Clear()
 
         If SearchTextBox.Text <> "" Then
             For Each matchingProduct As String In productList
                 temp = Split(matchingProduct)
-                If temp(search).StartsWith(SearchTextBox.Text, StringComparison.CurrentCultureIgnoreCase) Then
+                If temp(0).StartsWith(SearchTextBox.Text, StringComparison.CurrentCultureIgnoreCase) Then
                     DisplayListBox.Items.Add(temp(0))
                 End If
             Next
+            If DisplayListBox.Items.Count = 0 Then
+                UpdateDisplayLabel(True, False)
+            Else
+                DisplayListBox.SelectedIndex = 0
+                UpdateDisplayLabel(True, True)
+            End If
         Else
             RefillDisplayListBox()
             UpdateComboBox()
+            DisplayLabel.Text = "Please enter an item to search"
         End If
 
-        If DisplayListBox.Items.Count = 0 Then
-            DisplayLabel.Text = $"Sorry, there were no matches for {SearchTextBox.Text}"
-        End If
+
 
     End Sub
 
@@ -165,19 +161,26 @@ Public Class StansGroceryForm
         End If
     End Sub
 
-    Sub UpdateDisplayLabel()
+    Sub UpdateDisplayLabel(search As Boolean, Optional goodSearch As Boolean = False)
         Dim temp() As String
 
         DisplayLabel.Visible = True
         DisplayLabel.Text = ""
 
-        temp = Split(FilterComboBox.Text, ",")
-
-        DisplayLabel.Text = $"{temp(0).TrimStart} is on Aisle #{temp(1).TrimStart}, in the {temp(2).TrimStart} section"
-
-        If DisplayLabel.Text = "" Then
-            DisplayLabel.Text = $"Sorry, there were no matches for {SearchTextBox.Text}"
+        If search Then
+            If goodSearch Then
+                temp = Split(FilterComboBox.Text, ",")
+                DisplayLabel.Text = $"{temp(0).TrimStart} is on Aisle #{temp(1).TrimStart}, in the {temp(2).TrimStart} section"
+            Else
+                If DisplayLabel.Text = "" Then
+                    DisplayLabel.Text = $"Sorry, there were no matches for {SearchTextBox.Text}"
+                End If
+            End If
+        Else
+            temp = Split(FilterComboBox.Text, ",")
+            DisplayLabel.Text = $"{temp(0).TrimStart} is on Aisle #{temp(1).TrimStart}, in the {temp(2).TrimStart} section"
         End If
+
 
     End Sub
 
@@ -189,7 +192,6 @@ Public Class StansGroceryForm
     End Sub
 
     Private Sub SearchTextBox_TextChanged(sender As Object, e As EventArgs) Handles SearchTextBox.TextChanged
-        SearchForItem()
         If SearchTextBox.Text = "zzz" Then
             Me.Close()
         End If
@@ -198,7 +200,7 @@ Public Class StansGroceryForm
     Private Sub FilterComboBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles FilterComboBox.SelectedIndexChanged
         DisplayListBox.SelectedIndex = FilterComboBox.SelectedIndex
         SelectedAisleOrCategory()
-        UpdateDisplayLabel()
+        UpdateDisplayLabel(False)
     End Sub
 
     Private Sub SearchButton_Click(sender As Object, e As EventArgs) Handles SearchButton.Click
@@ -243,6 +245,6 @@ Public Class StansGroceryForm
 
     Private Sub DisplayListBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles DisplayListBox.SelectedIndexChanged
         FilterComboBox.SelectedIndex = DisplayListBox.SelectedIndex
-        UpdateDisplayLabel()
+        UpdateDisplayLabel(False)
     End Sub
 End Class
