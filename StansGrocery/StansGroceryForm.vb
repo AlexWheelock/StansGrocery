@@ -1,12 +1,12 @@
-﻿Option Strict On
-Option Explicit On
-Option Compare Text
-'Alex Wheelock
+﻿'Alex Wheelock
 'RCET 0265
 'Spring 2024
 'Stan's Grocery
 'https://github.com/AlexWheelock/StansGrocery.git
 
+Option Strict On
+Option Explicit On
+Option Compare Text
 Imports System.CodeDom.Compiler
 
 Public Class StansGroceryForm
