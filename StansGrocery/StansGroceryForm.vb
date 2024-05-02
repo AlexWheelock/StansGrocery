@@ -45,13 +45,15 @@ Public Class StansGroceryForm
                 End If
             End If
         Loop
+        FileClose(1)
         RefillDisplayListBox()
         UpdateComboBox()
-        FileClose(1)
     End Sub
 
     Sub RefillDisplayListBox()
         Dim temp() As String
+
+        DisplayListBox.Items.Clear()
 
         For Each product As String In productList
             temp = Split(product, ",")
@@ -61,7 +63,7 @@ Public Class StansGroceryForm
         Next
     End Sub
 
-    Sub UpdateComboBox()
+    Sub UpdateComboBox(Optional search As Boolean = False)
         Dim temp() As String
         Dim filter As Integer = 0
         Dim tempList As New List(Of Integer)
@@ -81,7 +83,6 @@ Public Class StansGroceryForm
             End If
         End If
 
-
         If filter = 0 Then
             FilterComboBox.Sorted = True
             For Each filteredItem As String In productList
@@ -90,10 +91,11 @@ Public Class StansGroceryForm
         Else
             If filter = 1 Then
                 FilterComboBox.Sorted = False
-                FilterComboBox.Items.Add(CStr(0))
-                For aisle = 2 To 17
+
+                For aisle = 17 To 2 Step -1
                     FilterComboBox.Items.Add(CStr(aisle))
                 Next
+                FilterComboBox.Items.Add(CStr(0))
             Else
                 FilterComboBox.Sorted = True
                 For Each filteredItem As String In productList
@@ -114,26 +116,25 @@ Public Class StansGroceryForm
 
         If SearchTextBox.Text <> "" Then
             For Each matchingProduct As String In productList
-                temp = Split(matchingProduct)
+                temp = Split(matchingProduct, ",")
                 If temp(0).StartsWith(SearchTextBox.Text, StringComparison.CurrentCultureIgnoreCase) Then
                     DisplayListBox.Items.Add(temp(0))
+                    DisplayLabel.Text = $"{temp(0).TrimStart} is on Aisle #{temp(1).TrimStart}, in the {temp(2).TrimStart} section"
                 End If
             Next
             If DisplayListBox.Items.Count = 0 Then
                 UpdateDisplayLabel(True, False)
             Else
                 DisplayListBox.SelectedIndex = 0
-                UpdateDisplayLabel(True, True)
+                UpdateDisplayLabel(False, False, True)
             End If
         Else
             RefillDisplayListBox()
             UpdateComboBox()
-            DisplayLabel.Text = "Please enter an item to search"
+            DisplayLabel.Text = "Please enter a product name to search for"
         End If
-
-
-
     End Sub
+
 
     Sub SelectedAisleOrCategory()
         Dim temp() As String
@@ -153,7 +154,6 @@ Public Class StansGroceryForm
 
             For Each matchingFilter As String In productList
                 temp = Split(matchingFilter, ",")
-
                 If temp(filter).TrimStart.StartsWith(CStr(FilterComboBox.SelectedItem)) Then
                     DisplayListBox.Items.Add(temp(0))
                 End If
@@ -161,7 +161,7 @@ Public Class StansGroceryForm
         End If
     End Sub
 
-    Sub UpdateDisplayLabel(search As Boolean, Optional goodSearch As Boolean = False)
+    Sub UpdateDisplayLabel(search As Boolean, Optional goodSearch As Boolean = False, Optional displayBox As Boolean = False)
         Dim temp() As String
 
         DisplayLabel.Visible = True
@@ -173,14 +173,29 @@ Public Class StansGroceryForm
                 DisplayLabel.Text = $"{temp(0).TrimStart} is on Aisle #{temp(1).TrimStart}, in the {temp(2).TrimStart} section"
             Else
                 If DisplayLabel.Text = "" Then
-                    DisplayLabel.Text = $"Sorry, there were no matches for {SearchTextBox.Text}"
+                    DisplayLabel.Text = $"Sorry, there were no matches for {Chr(34)}{SearchTextBox.Text}{Chr(34)}"
                 End If
             End If
         Else
-            temp = Split(FilterComboBox.Text, ",")
-            DisplayLabel.Text = $"{temp(0).TrimStart} is on Aisle #{temp(1).TrimStart}, in the {temp(2).TrimStart} section"
+            If displayBox Then
+                For Each matchingProduct As String In productList
+                    temp = Split(matchingProduct, ",")
+                    If temp(0).StartsWith(CStr(DisplayListBox.SelectedItem)) Then
+                        DisplayLabel.Text = $"{temp(0).TrimStart} is on Aisle #{temp(1).TrimStart}, in the {temp(2).TrimStart} section"
+                    End If
+                Next
+            Else
+                temp = Split(FilterComboBox.Text, ",")
+                DisplayLabel.Text = $"{temp(0).TrimStart} is on Aisle #{temp(1).TrimStart}, in the {temp(2).TrimStart} section"
+            End If
         End If
+    End Sub
 
+    Sub AboutForm()
+
+        MsgBox($"Welcome to Stan's Grocery!" & vbCrLf _
+               & vbCrLf _
+               & "Here at Stan's Grocery, we not only have the best employees and freshest produce, but we also have the best Windows Form. To get started, you can search for a product name, and click the search button to find the location and category of the product that you are looking for. You can also scroll through the full list of products available using the list-box on the right-hand side of the form, or by using the drop-down combo-box. If you wish to view individual categories, or aisles; you may do so using by selecting the corresponding aisle and category radio buttons, and scrolling through the combo-box. When you select an item from either the combo-box or the list-box, the product name, aisle #, and category will be displayed. To exit this form, you may click the exit button in either the top menu strip under " & {Chr(34)} & "file" & {Chr(34)} & ", the context menu, or by typing " & {Chr(34)} & "zzz" & {Chr(34)} & " into the search bar.")
 
     End Sub
 
@@ -189,6 +204,8 @@ Public Class StansGroceryForm
 
     Private Sub StansGrocery_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ReadProductInfo()
+        DisplayLabel.Visible = True
+        DisplayLabel.Text = "Please enter a product name to search for"
     End Sub
 
     Private Sub SearchTextBox_TextChanged(sender As Object, e As EventArgs) Handles SearchTextBox.TextChanged
@@ -200,7 +217,6 @@ Public Class StansGroceryForm
     Private Sub FilterComboBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles FilterComboBox.SelectedIndexChanged
         DisplayListBox.SelectedIndex = FilterComboBox.SelectedIndex
         SelectedAisleOrCategory()
-        UpdateDisplayLabel(False)
     End Sub
 
     Private Sub SearchButton_Click(sender As Object, e As EventArgs) Handles SearchButton.Click
@@ -219,7 +235,7 @@ Public Class StansGroceryForm
 
 
     Private Sub SearchContextMenuButton_Click(sender As Object, e As EventArgs) Handles SearchContextMenuButton.Click
-
+        SearchForItem()
     End Sub
 
     Private Sub ExitContextMenuButton_Click(sender As Object, e As EventArgs) Handles ExitContextMenuButton.Click
@@ -235,7 +251,7 @@ Public Class StansGroceryForm
     End Sub
 
     Private Sub AboutTopMenuButton_Click(sender As Object, e As EventArgs) Handles AboutTopMenuButton.Click
-
+        AboutForm()
     End Sub
 
     Private Sub NoneRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles NoneRadioButton.CheckedChanged
@@ -244,7 +260,12 @@ Public Class StansGroceryForm
     End Sub
 
     Private Sub DisplayListBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles DisplayListBox.SelectedIndexChanged
-        FilterComboBox.SelectedIndex = DisplayListBox.SelectedIndex
-        UpdateDisplayLabel(False)
+        If NoneRadioButton.Checked = True Then
+            FilterComboBox.SelectedIndex = DisplayListBox.SelectedIndex
+            UpdateDisplayLabel(False, False, False)
+        Else
+            UpdateDisplayLabel(False, False, True)
+        End If
+
     End Sub
 End Class
